@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+body {
+  @apply min-h-screen bg-gradient-to-br from-violet-100 via-purple-50 to-indigo-100;
+}
