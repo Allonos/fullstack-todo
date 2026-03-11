@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import Todo from "../models/Todo";
+import { AuthRequest } from "../middleware/authMiddleware";
 
-export const getTodos = async (req: Request, res: Response) => {
+export const getTodos = async (req: AuthRequest, res: Response) => {
   try {
     const { filter } = req.query;
-    let query = {};
-    if (filter === "active") query = { completed: false };
-    else if (filter === "completed") query = { completed: true };
+    const userId = req.user._id;
+
+    let query: Record<string, unknown> = { ownerId: userId };
+    if (filter === "active") query = { ownerId: userId, completed: false };
+    else if (filter === "completed")
+      query = { ownerId: userId, completed: true };
 
     const todos = await Todo.find(query);
     res.status(200).json(todos);
@@ -64,7 +68,7 @@ export const updateTodo = async (req: Request, res: Response) => {
   }
 };
 
-export const createTodo = async (req: Request, res: Response) => {
+export const createTodo = async (req: AuthRequest, res: Response) => {
   const { title, description, priority } = req.body;
 
   if (!title || title.trim() === "") {
@@ -80,6 +84,7 @@ export const createTodo = async (req: Request, res: Response) => {
 
   try {
     const newTodo = new Todo({
+      ownerId: req.user._id,
       title,
       description,
       priority,

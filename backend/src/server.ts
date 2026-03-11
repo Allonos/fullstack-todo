@@ -4,6 +4,8 @@ import cors from "cors";
 
 import { connectDB } from "./lib/db";
 import todoRoutes from "./routes/todoRoutes";
+import authRoutes from "./routes/authRoutes";
+import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 8080;
 
@@ -16,10 +18,13 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/todos", todoRoutes);
+app.use("/api/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  connectDB();
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });

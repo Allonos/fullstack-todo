@@ -6,8 +6,11 @@ import {
   getTodos,
   updateTodo,
 } from "../controllers/todoControllers";
+import { protectRoute } from "../middleware/authMiddleware";
 
 const router = Router();
+
+router.use(protectRoute);
 
 router.get("/", getTodos);
 
