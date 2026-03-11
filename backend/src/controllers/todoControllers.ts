@@ -20,10 +20,12 @@ export const getTodos = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getTodoById = async (req: Request, res: Response) => {
+export const getTodoById = async (req: AuthRequest, res: Response) => {
   try {
     const { id } = req.params;
-    const todo = await Todo.findById(id);
+    const userId = req.user._id;
+
+    const todo = await Todo.findOne({ _id: id, ownerId: userId });
 
     if (!todo) {
       return res.status(404).json({ message: "Todo not found" });
@@ -36,9 +38,11 @@ export const getTodoById = async (req: Request, res: Response) => {
   }
 };
 
-export const updateTodo = async (req: Request, res: Response) => {
+export const updateTodo = async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
   const { title, priority } = req.body;
+
+  const userId = req.user._id;
 
   if (title !== undefined && title.trim() === "") {
     return res.status(400).json({ message: "Title cannot be empty" });
@@ -52,10 +56,14 @@ export const updateTodo = async (req: Request, res: Response) => {
   }
 
   try {
-    const updatedTodo = await Todo.findByIdAndUpdate(id, req.body, {
-      returnDocument: "after",
-      runValidators: true,
-    });
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      { _id: id, ownerId: userId },
+      req.body,
+      {
+        returnDocument: "after",
+        runValidators: true,
+      },
+    );
 
     if (!updatedTodo) {
       return res.status(404).json({ message: "Todo not found" });
@@ -71,6 +79,8 @@ export const updateTodo = async (req: Request, res: Response) => {
 export const createTodo = async (req: AuthRequest, res: Response) => {
   const { title, description, priority } = req.body;
 
+  const userId = req.user?._id;
+
   if (!title || title.trim() === "") {
     return res.status(400).json({ message: "Title is required" });
   }
@@ -84,7 +94,7 @@ export const createTodo = async (req: AuthRequest, res: Response) => {
 
   try {
     const newTodo = new Todo({
-      ownerId: req.user._id,
+      ownerId: userId,
       title,
       description,
       priority,
@@ -99,11 +109,15 @@ export const createTodo = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const deleteTodo = async (req: Request, res: Response) => {
+export const deleteTodo = async (req: AuthRequest, res: Response) => {
   const { id } = req.params;
+  const userId = req.user._id;
 
   try {
-    const deletedTodo = await Todo.findByIdAndDelete(id);
+    const deletedTodo = await Todo.findOneAndDelete({
+      _id: id,
+      ownerId: userId,
+    });
 
     if (!deletedTodo) {
       return res.status(404).json({ message: "Todo not found" });
