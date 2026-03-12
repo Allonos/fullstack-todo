@@ -20,11 +20,6 @@ const HomePage = () => {
       <HomePageHeader remainingTodosLength={remainingTodos} />
       <HomePageTabs activeTab={activeTab} setActiveTab={setActiveTab} />
       {isLoading ? <TodoListSkeleton /> : <TodoList todos={data} />}
-      {data.length === 0 && !isLoading && (
-        <p className="text-center text-gray-500 text-2xl">
-          Create your first todo!
-        </p>
-      )}
     </section>
   );
 };
