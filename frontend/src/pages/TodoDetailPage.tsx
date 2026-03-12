@@ -16,8 +16,10 @@ const TodoDetailPage = () => {
   const navigate = useNavigate();
 
   const { data: todo, isLoading } = useTodoDetailQuery(id!);
-  const { mutate: updateTodo } = useUpdateTodoMutation();
-  const { mutate: deleteTodo } = useDeleteTodoMutation();
+  const { mutate: updateTodo, isPending: isUpdating } = useUpdateTodoMutation();
+  const { mutate: deleteTodo, isPending: isDeleting } = useDeleteTodoMutation();
+
+  const isPending = isUpdating || isDeleting;
 
   const markAsDone = () => {
     updateTodo({ id: todo?._id, data: { completed: !todo?.completed } });
@@ -36,10 +38,14 @@ const TodoDetailPage = () => {
     <section className="min-w-125">
       <div
         onClick={() => navigate("/")}
-        className="flex items-center gap-2 cursor-pointer"
+        className={`flex items-center gap-2 ${
+          isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+        }`}
       >
         <ArrowLeft
-          className="cursor-pointer"
+          className={`cursor-pointer ${
+            isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+          }`}
           color="#99A1AF"
           width={16}
           height={16}
@@ -105,9 +111,9 @@ const TodoDetailPage = () => {
           <div className="flex gap-4 items-center">
             <button
               onClick={markAsDone}
-              disabled={todo?.completed}
+              disabled={todo?.completed || isPending}
               className={`flex flex-2/3 border justify-center items-center gap-2 rounded-2xl transition-colors duration-150 px-4 py-3 text-white ${
-                todo?.completed
+                todo?.completed || isPending
                   ? "border-violet-200 bg-violet-300 cursor-not-allowed"
                   : "border-violet-400 bg-violet-600 hover:bg-violet-700 cursor-pointer"
               }`}
@@ -119,7 +125,11 @@ const TodoDetailPage = () => {
             </button>
             <div
               onClick={handleDeleteTodo}
-              className="flex border border-red-300 flex-1/3 px-4 py-3 bg-red-50 rounded-2xl justify-center items-center gap-2 cursor-pointer hover:bg-red-100 transition-colors duration-150"
+              className={`flex border border-red-300 flex-1/3 px-4 py-3 bg-red-50 rounded-2xl justify-center items-center gap-2 transition-colors duration-150 ${
+                isPending
+                  ? "cursor-not-allowed opacity-60"
+                  : "cursor-pointer hover:bg-red-100"
+              }`}
             >
               <TrashIcon color="#FF6467" width={15} height={15} />
               <h3 className="text-[14px] font-bold text-red-400">Delete</h3>

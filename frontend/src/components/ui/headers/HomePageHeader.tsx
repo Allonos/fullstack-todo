@@ -7,7 +7,7 @@ interface IProps {
 }
 
 const HomePageHeader = ({ remainingTodosLength }: IProps) => {
-  const { mutate: logout } = useLogoutServiceMutation();
+  const { mutate: logout, isPending } = useLogoutServiceMutation();
 
   const navigate = useNavigate();
 
@@ -40,7 +40,9 @@ const HomePageHeader = ({ remainingTodosLength }: IProps) => {
 
         <div
           onClick={logoutHandler}
-          className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl cursor-pointer shadow-md hover:bg-[#f0f0f017] transition-colors duration-150"
+          className={`flex items-center gap-2 bg-white px-4 py-2 rounded-2xl cursor-pointer shadow-md transition-colors duration-150 ${
+            isPending ? "cursor-not-allowed opacity-60" : "hover:bg-[#f0f0f017]"
+          }`}
         >
           <LogOutIcon color="#4A5565" size={14} />
           <p className="text-[#4A5565] text-[14px]">Logout</p>

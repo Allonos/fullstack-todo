@@ -12,7 +12,7 @@ const CreateTodo = () => {
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<Priority>("Medium");
 
-  const { mutate: createTodo } = useCreateTodoMutation();
+  const { mutate: createTodo, isPending } = useCreateTodoMutation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,10 +78,13 @@ const CreateTodo = () => {
             <input
               type="text"
               placeholder="What needs to be done?"
-              className={`w-full border rounded-xl px-4 py-3 outline-none transition-all text-gray-700 placeholder-gray-300 ${"border-gray-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"}`}
+              className={`w-full border rounded-xl px-4 py-3 outline-none transition-all text-gray-700 placeholder-gray-300 ${"border-gray-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-100"} ${
+                isPending ? "cursor-not-allowed opacity-60" : ""
+              }`}
               style={{ fontSize: "0.95rem" }}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              disabled={isPending}
             />
           </div>
 
@@ -95,10 +98,13 @@ const CreateTodo = () => {
             <textarea
               placeholder="Add some details (optional)"
               rows={4}
-              className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all text-gray-700 placeholder-gray-300 resize-none"
+              className={`w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all text-gray-700 placeholder-gray-300 resize-none ${
+                isPending ? "cursor-not-allowed opacity-60" : ""
+              }`}
               style={{ fontSize: "0.95rem" }}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              disabled={isPending}
             />
           </div>
 
@@ -119,8 +125,9 @@ const CreateTodo = () => {
                     priority === priorityOption.value
                       ? `${priorityOption.bg} ${priorityOption.color} border-current`
                       : "bg-gray-50 text-gray-400 border-transparent hover:border-gray-200"
-                  }`}
+                  } ${isPending ? "cursor-not-allowed opacity-60" : ""}`}
                   style={{ fontSize: "0.85rem", fontWeight: 600 }}
+                  disabled={isPending}
                 >
                   {priorityOption.label}
                 </button>
@@ -130,8 +137,11 @@ const CreateTodo = () => {
 
           <button
             type="submit"
-            className="mt-2 cursor-pointer flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-xl transition-colors shadow-md"
+            className={`mt-2 flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-xl transition-colors shadow-md ${
+              isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+            }`}
             style={{ fontSize: "0.95rem", fontWeight: 600 }}
+            disabled={isPending}
           >
             <Plus size={18} />
             Create Todo

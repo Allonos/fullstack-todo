@@ -15,7 +15,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { mutate: login, error } = useLoginServiceMutation();
+  const { mutate: login, error, isPending } = useLoginServiceMutation();
 
   const navigate = useNavigate();
 
@@ -61,6 +61,7 @@ const LoginPage = () => {
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -80,6 +81,7 @@ const LoginPage = () => {
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -87,7 +89,10 @@ const LoginPage = () => {
         <div>
           <button
             type="submit"
-            className="bg-violet-600 text-white py-2 px-4 rounded-md w-full hover:bg-violet-700 transition-colors cursor-pointer"
+            className={`bg-violet-600 text-white py-2 px-4 rounded-md w-full hover:bg-violet-700 transition-colors ${
+              isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+            }`}
+            disabled={isPending}
           >
             Login
           </button>
@@ -97,7 +102,9 @@ const LoginPage = () => {
           <p className="text-center font-[13px] text-[#99A1AF]">
             Don't have an account?{" "}
             <span
-              className="text-violet-600 font-semibold cursor-pointer"
+              className={`text-violet-600 font-semibold cursor-pointer ${
+                isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+              }`}
               onClick={() => navigate("/signup")}
             >
               Sign up

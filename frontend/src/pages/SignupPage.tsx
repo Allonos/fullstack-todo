@@ -15,13 +15,11 @@ const SignupPage = () => {
     fullName: "",
     email: "",
     password: "",
-
   });
 
-  
   const navigate = useNavigate();
 
-  const { mutate: signup, error } = useSignupServiceMutation();
+  const { mutate: signup, error, isPending } = useSignupServiceMutation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +28,7 @@ const SignupPage = () => {
       onSuccess: () => navigate("/login"),
       onError: () => {
         toast.error(error instanceof Error ? error.message : "Signup failed");
-      }
+      },
     });
   };
 
@@ -65,6 +63,7 @@ const SignupPage = () => {
               value={formData.fullName}
               onChange={(e) =>
                 setFormData({ ...formData, fullName: e.target.value })}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -85,6 +84,7 @@ const SignupPage = () => {
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -105,6 +105,7 @@ const SignupPage = () => {
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })}
+              disabled={isPending}
             />
           </div>
         </div>
@@ -112,7 +113,10 @@ const SignupPage = () => {
         <div>
           <button
             type="submit"
-            className="bg-violet-600 text-white py-2 px-4 rounded-md w-full hover:bg-violet-700 transition-colors cursor-pointer"
+            className={`bg-violet-600 text-white py-2 px-4 rounded-md w-full hover:bg-violet-700 transition-colors ${
+              isPending ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+            }`}
+            disabled={isPending}
           >
             Sign Up
           </button>
