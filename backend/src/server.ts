@@ -8,7 +8,7 @@ import authRoutes from "./routes/authRoutes";
 import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 8080;
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = "https://fullstack-todo-swart.vercel.app";
 
 const app = express();
 app.use(
