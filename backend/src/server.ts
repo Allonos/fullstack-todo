@@ -8,11 +8,12 @@ import authRoutes from "./routes/authRoutes";
 import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 8080;
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
