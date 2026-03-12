@@ -8,7 +8,7 @@ import LoginPage from "./pages/LoginPage.tsx";
 import SignupPage from "./pages/SignupPage.tsx";
 import { useCheckAuthServiceQuery } from "./services/react-query/checkAuth/query/useCheckAuthServiceQuery.tsx";
 import { Toaster } from "react-hot-toast";
-import TodoListSkeleton from "./components/ui/lists/TodoListSkeleton.tsx";
+import TodoListSkeleton from "./components/ui/skeletons/TodoListSkeleton.tsx";
 
 function App() {
   const { data: authUser, isPending: isCheckingAuth } =

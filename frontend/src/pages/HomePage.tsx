@@ -1,7 +1,7 @@
 import { useState } from "react";
 import HomePageHeader from "../components/ui/headers/HomePageHeader";
 import TodoList from "../components/ui/lists/TodoList";
-import TodoListSkeleton from "../components/ui/lists/TodoListSkeleton";
+import TodoListSkeleton from "../components/ui/skeletons/TodoListSkeleton";
 import HomePageTabs from "../components/ui/tabs/HomePageTabs";
 import { useGetAllTodosQuery } from "../services/react-query/homePage/query/useGetAllTodosQuery";
 import type { ITodo } from "../utils/types";

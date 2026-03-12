@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useTodoDetailQuery } from "../services/react-query/todoDetailPage/query/useTodoDetailQuery";
+import TodoDetailSkeleton from "../components/ui/skeletons/TodoDetailSkeleton";
 import {
   ArrowLeft,
   Calendar,
@@ -31,7 +32,7 @@ const TodoDetailPage = () => {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <TodoDetailSkeleton />;
   }
 
   return (
