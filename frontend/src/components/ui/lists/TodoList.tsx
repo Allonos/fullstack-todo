@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const TodoList = ({ todos }: IProps) => {
-  const { mutate: updateTodo } = useUpdateTodoMutation();
+  const { mutate: updateTodo, isPending } = useUpdateTodoMutation();
   const navigate = useNavigate();
 
   const toggleTodo = (item: ITodo) => {
@@ -20,14 +20,18 @@ const TodoList = ({ todos }: IProps) => {
       {todos.map((item, index) => (
         <React.Fragment key={item._id}>
           <div
-            onClick={() => navigate(`/todo/${item._id}`)}
-            className="flex justify-between items-center gap-2 px-5 py-4 cursor-pointer hover:bg-gray-100 transition-colors duration-150"
+            onClick={() => !isPending && navigate(`/todo/${item._id}`)}
+            className={`flex justify-between items-center gap-2 px-5 py-4 transition-colors duration-150 ${
+              isPending
+                ? "cursor-not-allowed opacity-60"
+                : "cursor-pointer hover:bg-gray-100"
+            }`}
           >
             <div className="flex items-center gap-3">
               <div
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleTodo(item);
+                  if (!isPending) toggleTodo(item);
                 }}
                 className={`w-5 h-5 z-5 rounded-full border flex items-center justify-center transition-colors duration-150 ${
                   item.completed
