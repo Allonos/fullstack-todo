@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  // baseURL: "https://fullstack-todo-fqkg.onrender.com/api",
-  baseURL: "http://localhost:8080/api",
+  baseURL: "https://fullstack-todo-fqkg.onrender.com/api",
   withCredentials: true,
 });
 
