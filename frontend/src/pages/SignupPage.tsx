@@ -33,18 +33,18 @@ const SignupPage = () => {
   };
 
   return (
-    <section className="min-w-125 flex flex-col items-center">
+    <section className="w-full flex flex-col items-center">
       <div className="bg-violet-600 flex items-center justify-center w-14 h-14 rounded-2xl">
         <UserPlusIcon color="white" />
       </div>
-      <h1 className="text-[32px] font-bold text-center text-violet-600 mt-4">
+      <h1 className="text-2xl sm:text-[32px] font-bold text-center text-violet-600 mt-4">
         Create Account
       </h1>
 
       <p className="text-[14px] text-[#99A1AF]">Sign up to get started</p>
 
       <form
-        className="bg-white p-8 mt-5 rounded-2xl w-full flex flex-col gap-8"
+        className="bg-white p-5 sm:p-8 mt-5 rounded-2xl w-full flex flex-col gap-5 sm:gap-8"
         onSubmit={handleSubmit}
       >
         <div>

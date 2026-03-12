@@ -16,7 +16,7 @@ const HomePage = () => {
     data?.filter((todo: ITodo) => !todo.completed).length || 0;
 
   return (
-    <section className="min-w-125">
+    <section className="w-full">
       <HomePageHeader remainingTodosLength={remainingTodos} />
       <HomePageTabs activeTab={activeTab} setActiveTab={setActiveTab} />
       {isLoading ? <TodoListSkeleton /> : <TodoList todos={data} />}

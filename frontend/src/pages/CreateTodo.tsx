@@ -41,7 +41,7 @@ const CreateTodo = () => {
   };
 
   return (
-    <section className="min-w-125">
+    <section className="w-full">
       <div
         onClick={() => navigate("/")}
         className="flex items-center gap-2 cursor-pointer"
@@ -60,14 +60,14 @@ const CreateTodo = () => {
         className="mt-5 bg-white rounded-2xl shadow-md"
       >
         <div
-          className={`px-6 py-3 flex items-center gap-2 rounded-t-2xl`}
+          className={`px-4 sm:px-6 py-3 flex items-center gap-2 rounded-t-2xl`}
         >
           <h1 className="text-[22px] font-bold text-[#1E2939]">
             Create New Todo
           </h1>
         </div>
 
-        <div className="px-6 py-3 flex flex-col gap-8">
+        <div className="px-4 sm:px-6 py-3 flex flex-col gap-5 sm:gap-8">
           <div className="flex flex-col gap-1.5">
             <label
               className="text-gray-600"

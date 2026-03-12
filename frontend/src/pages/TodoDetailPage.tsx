@@ -35,7 +35,7 @@ const TodoDetailPage = () => {
   }
 
   return (
-    <section className="min-w-125">
+    <section className="w-full">
       <div
         onClick={() => navigate("/")}
         className={`flex items-center gap-2 ${
@@ -73,9 +73,9 @@ const TodoDetailPage = () => {
         </div>
         <div className="w-full bg-gray-200 h-px" />
 
-        <div className="px-8 py-8 flex flex-col gap-4">
+        <div className="px-4 sm:px-8 py-5 sm:py-8 flex flex-col gap-4">
           <h1 className="text-2xl font-bold text-[#1E2939]">{todo?.title}</h1>
-          <div className="flex gap-5 items-center">
+          <div className="flex flex-wrap gap-3 items-center">
             <div
               className={`flex gap-2 items-center px-3 py-1 rounded-full ${
                 todo?.priority === "High"
@@ -108,11 +108,11 @@ const TodoDetailPage = () => {
             </p>
           </div>
 
-          <div className="flex gap-4 items-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
             <button
               onClick={markAsDone}
               disabled={todo?.completed || isPending}
-              className={`flex flex-2/3 border justify-center items-center gap-2 rounded-2xl transition-colors duration-150 px-4 py-3 text-white ${
+              className={`flex sm:flex-2/3 border justify-center items-center gap-2 rounded-2xl transition-colors duration-150 px-4 py-3 text-white ${
                 todo?.completed || isPending
                   ? "border-violet-200 bg-violet-300 cursor-not-allowed"
                   : "border-violet-400 bg-violet-600 hover:bg-violet-700 cursor-pointer"
@@ -125,7 +125,7 @@ const TodoDetailPage = () => {
             </button>
             <div
               onClick={handleDeleteTodo}
-              className={`flex border border-red-300 flex-1/3 px-4 py-3 bg-red-50 rounded-2xl justify-center items-center gap-2 transition-colors duration-150 ${
+              className={`flex border border-red-300 sm:flex-1/3 px-4 py-3 bg-red-50 rounded-2xl justify-center items-center gap-2 transition-colors duration-150 ${
                 isPending
                   ? "cursor-not-allowed opacity-60"
                   : "cursor-pointer hover:bg-red-100"

@@ -6,9 +6,8 @@ interface HomePageTabsProps {
 }
 
 const HomePageTabs = ({ activeTab, setActiveTab }: HomePageTabsProps) => {
-
   return (
-    <section className="pt-10 flex gap-4">
+    <section className="pt-6 sm:pt-10 flex gap-2 sm:gap-4 flex-wrap">
       <h3
         onClick={() => setActiveTab("all")}
         className={`px-4 py-1.5 rounded-3xl cursor-pointer transition-colors duration-150 ${
