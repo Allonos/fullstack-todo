@@ -7,6 +7,6 @@ interface IProps {
 }
 
 export const createTodo = async (data: IProps) => {
-  const response = await api.post("/create", data);
+  const response = await api.post("/todos/create", data);
   return response.data;
 };

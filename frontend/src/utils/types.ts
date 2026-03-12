@@ -1,3 +1,9 @@
+export interface IAuthUser {
+  _id: string;
+  fullName: string;
+  email: string;
+}
+
 export interface ITodo {
   completed: boolean;
   createdAt: string;

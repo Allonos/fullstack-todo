@@ -7,6 +7,6 @@ interface IProps {
 }
 
 export const updateTodo = async ({ id, data }: IProps) => {
-  const response = await api.put(`/update/${id}`, data);
+  const response = await api.put(`/todos/update/${id}`, data);
   return response.data;
 };

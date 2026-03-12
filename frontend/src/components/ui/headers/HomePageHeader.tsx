@@ -1,11 +1,24 @@
-import { Plus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LogOutIcon, Plus } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogoutServiceMutation } from "../../../services/react-query/homePage/mutation/useLogoutServiceMutation";
 
 interface IProps {
   remainingTodosLength: number;
 }
 
 const HomePageHeader = ({ remainingTodosLength }: IProps) => {
+  const { mutate: logout } = useLogoutServiceMutation();
+
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        navigate("/login");
+      },
+    });
+  };
+
   return (
     <div className="flex justify-between">
       <div>
@@ -16,13 +29,23 @@ const HomePageHeader = ({ remainingTodosLength }: IProps) => {
           Remaining
         </p>
       </div>
-      <Link
-        to="/create"
-        className="flex items-center px-4 gap-2 bg-violet-600 rounded-2xl cursor-pointer hover:bg-violet-700 transition-colors duration-150"
-      >
-        <Plus width={20} height={20} color="white" />
-        <h2 className="text-[14px] text-white">New Todo</h2>
-      </Link>
+      <div className="flex items-center gap-4">
+        <Link
+          to="/create"
+          className="flex items-center px-4 py-2 gap-2 bg-violet-600 rounded-2xl cursor-pointer hover:bg-violet-700 transition-colors duration-150"
+        >
+          <Plus size={14} color="white" />
+          <h2 className="text-[14px] text-white">New Todo</h2>
+        </Link>
+
+        <div
+          onClick={logoutHandler}
+          className="flex items-center gap-2 bg-white px-4 py-2 rounded-2xl cursor-pointer shadow-md hover:bg-[#f0f0f017] transition-colors duration-150"
+        >
+          <LogOutIcon color="#4A5565" size={14} />
+          <p className="text-[#4A5565] text-[14px]">Logout</p>
+        </div>
+      </div>
     </div>
   );
 };
