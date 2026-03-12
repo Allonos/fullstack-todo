@@ -17,6 +17,11 @@ const TodoList = ({ todos }: IProps) => {
 
   return (
     <section className="bg-white rounded-xl mt-5">
+      {todos.length === 0 && (
+        <p className="text-center text-gray-500 text-2xl py-10">
+          You do not have a todo yet!
+        </p>
+      )}
       {todos.map((item, index) => (
         <React.Fragment key={item._id}>
           <div
