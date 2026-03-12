@@ -15,6 +15,8 @@ const HomePage = () => {
   const remainingTodos =
     data?.filter((todo: ITodo) => !todo.completed).length || 0;
 
+  console.log(data);
+
   return (
     <section className="min-w-125">
       <HomePageHeader remainingTodosLength={remainingTodos} />
